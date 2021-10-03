@@ -1,63 +1,61 @@
 // Задание 1
 function getArrayParams(arr) {
   let min,max,sum,avg;
+  min = arr[0];
+  max = arr[0];
+  sum = 0;
+  avg = 0;
 
-  if (arr.length >= 3){
-    if (arr.length === 3){
-      min = arr[0];
-      max = arr[0];
-      for(let i = 0; i <= arr[1]; i++){
-        max = i;
-        for(let ii = arr[2]; ii > arr[1]; ii--){
-          min = ii;
-        }
+  for (let i = 0; i < arr.length; i++){
+      if (arr[i] > max){
+        max = arr[i];
       }
-      sum = (min + max) + arr[2];
-    }
-    if (arr.length > 3){
-      massiveLengthMore3();
-    }
-    testAvg = sum / arr.length;
+      if (arr[i] < min){
+        min = arr[i];
+      }
+      sum += arr[i];
   }
-  if (arr.length < 3){
-    massiveLengthSmaller3();
-  }
-  avg = Number(testAvg.toFixed(2))
-  function massiveLengthMore3(){
-    min = arr[3];
-    max = arr[4];
-    sum = arr[0] + arr[1] + arr[2] + arr[3] + arr[4];
-  }
-  function massiveLengthSmaller3(){
-    min = arr[0];
-    max = arr[0];
-    sum = arr[0] * 2;
-    testAvg = sum / 2;
-  }
+
+  let setAvg = sum / arr.length;
+  avg = Number(setAvg.toFixed(2));
+  
   return { min:min, max:max, avg:avg };
 }
 
 // Задание 2
 function worker(arr) {
-  let sum;
+  let max = [];
+  let sum = 0;
   // Ваш код
-  for (let i = 0; i < arr[0].length; i++){
-    sum = arr[0][i] + arr[1][i];
+  
+  for (let i = 0; i < arr.length; i++){
+    let testArr = arr[i];
+    let arrSum = 0;
+      for (let j = 0; j < arr[i].length; j++){
+        arrSum += testArr[j];
+      }
+    max.push(arrSum);
+    
   }
+
+  for (let k = 0; k < max.length; k++){
+  	if (max[k] > sum){
+    	sum = max[k];
+    }
+  }
+ 
   return sum;
 }
 
-function makeWork(arrOfArr, func) {
-  let max
+function makeWork(arrOfArr, worker) {
+  let max = 0;
   // Ваш кода
   // for ...
+
   for (let i = 0; i < arrOfArr.length; i++){
-    worker(arrOfArr[i]);
+    max = worker(arrOfArr[i]);
   }
   
-  for (let i = 0; i < arrOfArr.length; i++){
-    console.log(max)
-  }
   return max
 }
 
