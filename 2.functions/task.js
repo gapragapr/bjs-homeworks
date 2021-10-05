@@ -27,7 +27,7 @@ function worker(arr) {
   let max = [];
   let sum = 0;
   // Ваш код
-  
+
   for (let i = 0; i < arr.length; i++){
     let testArr = arr[i];
     let arrSum = 0;
@@ -35,7 +35,6 @@ function worker(arr) {
         arrSum += testArr[j];
       }
     max.push(arrSum);
-    
   }
 
   for (let k = 0; k < max.length; k++){
@@ -43,17 +42,18 @@ function worker(arr) {
     	sum = max[k];
     }
   }
- 
+
   return sum;
 }
 
 function makeWork(arrOfArr, worker) {
   let max = 0;
-  // Ваш кода
+  // Ваш код
   // for ...
-
   for (let i = 0; i < arrOfArr.length; i++){
-    max = worker(arrOfArr[i]);
+    if (max < worker(arrOfArr)){
+      max = worker(arrOfArr)
+    } 
   }
   
   return max
@@ -62,4 +62,6 @@ function makeWork(arrOfArr, worker) {
 // Задание 3
 function worker2(arr) {
   // Ваш код
+
+
 }
