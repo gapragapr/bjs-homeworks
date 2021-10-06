@@ -24,16 +24,11 @@ function getArrayParams(arr) {
 
 // Задание 2
 function worker(arr) {
-  let sum = [];
+  let sum = 0;
 
   for (let i = 0; i < arr.length; i++){
-	let testArr = arr[i];
-  let arrSum = 0;
-  for (let j = 0; j < testArr.length; j++){
-  	arrSum += testArr[j];
+    sum += arr[i];
   }
-  	sum.push(arrSum)
-	}
 
   return sum;
 }
@@ -43,7 +38,7 @@ function makeWork(arrOfArr, func) {
   // Ваш код
   // for ...
   for (let i = 0; i < arrOfArr.length; i++){
-    let result = func(arrOfArr)[i];
+    let result = func(arrOfArr[i]);
     if (result > max){
       max = result;
     }
@@ -58,16 +53,15 @@ function worker2(arr) {
   let diffMin = 0;
   let diffMax = 0;
   let difference = [];
-  let sum = [];
-  for (let i = 0; i < arr.length; i++){
-	  let testArr = arr[i]
-    for (let j = 0; j < testArr.length; j++){
-  	  diffMin = Math.min.apply(null, testArr)
-      diffMax = Math.max.apply(null, testArr)
-    }
-  difference.push(diffMax - diffMin);
-}
+  let sum = 0;
 
-  sum.push(Math.max.apply(null, difference));
+  for (let j = 0; j < arr.length; j++){
+    diffMin = Math.min.apply(null, arr)
+    diffMax = Math.max.apply(null, arr)
+  }
+  difference.push(diffMax - diffMin);
+  
+  sum = Math.max.apply(null, difference);
+
   return sum;
 }
