@@ -2,20 +2,10 @@ function compareArrays(arr1, arr2) {
   let result;
 
   // Ваш код
-  if (arr1.length === arr2.length){
-    arr1.every(function(element, index) {
-      if (arr1[element] === arr2[element]) {
-        result = 1;
-      }
-      else{
-        result = 0;
-      }
-    })
-  }
-  else{
-    result = 0;
-  }
-  
+  let isSame = (arr1.length === arr2.length) && arr1.every(function(element, index){
+      return element === arr2[index];
+  });
+  result = isSame;
   return Boolean(result); // boolean
 
 }
