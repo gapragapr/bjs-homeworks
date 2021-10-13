@@ -36,5 +36,5 @@ Student.prototype.getAverage = function (){
   for (let i = 0; i < this.marks.length; i++){
     sum += this.marks[i];
   }
-  this,average = sum / this.marks.length;
+  this.average = sum / this.marks.length;
 }
