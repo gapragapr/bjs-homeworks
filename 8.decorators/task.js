@@ -1,55 +1,56 @@
 function cachingDecoratorNew(func) {
-  let array = [];
-  let cache = {};
+  let cache = [];
+  
+  function wrapper(...args) {
+      const hash = {
+        hash: args.join(","),
+        value: func(...args)
+      }; // получаем правильный хэш
+      let idx = cache.findIndex((item)=> item.hash === args.join(",") ); // ищем элемент, хэш которого равен нашему хэшу
+      if (idx !== -1 ) { // если элемент не найден
+          console.log("Из кэша: " + cache[idx].value); // индекс нам известен, по индексу в массиве лежит объект, как получить нужное значение?
+          return "Из кэша: " + cache[idx].value;
+      } else {
+          let result = hash;
+          cache.push(result)
+          if (cache.length > 5) { 
+            cache.shift() // если слишком много элементов в кэше надо удалить самый старый (первый) 
+          }
+          console.log("Вычисляем: " + result.value);
+          return "Вычисляем: " + result.value;  
+      }
+  }
+  return wrapper;
+  }
 
-  return function (...args) {
-    const hash = args.join(',');
-    if (hash in cache){
-      return `Из кэша: ${cache[hash]}`;
+function debounceDecoratorNew(func, ms) {
+  let flag = false
+  return function(...args) {
+    if (!flag) {
+      func(...args);
+      flag = true;
+      setTimeout(() => {
+        flag = false;
+      }, ms);
     }
-    if (array.length >= 5){
-      delete cache[array.shift()];
-    }
-    array.push(hash);
-    cache[hash] = func(...args);
-    return `Вычисляем: ${cache[hash]}`;
   }
 }
 
+function debounceDecorator2(func, ms) {
+  let flag = false;
+      sendMessage.count = 0;
 
+  function sendMessage(...args) {
+    if (!flag) {
+      func(...args);
+      flag = true;
+      sendMessage.count++;
 
-function debounceDecoratorNew(func) {
-  let timerID;
-  let isWait = false;
-
-  return function(){
-    if (!isWait){
-      func();
-      isWait = true;
-    }
-    else{
-      clearInterval(timerID);
-      console.log(`Подождите немного и попробуйте снова`)
-    }
-    timerID = setTimeout(() => {func(), isWait = false;}, ms)
-  }
-}
-
-function debounceDecorator2(func) {
-  // Ваш код
-  let count = 0;
-  let isWait = false;
-
-  function sendMessage() {
-    console.log(isWait)
-    if (!isWait) {
-      func();
-      sendMessage.counter = ++count;
-      setTimeout(()=> { func(); sendMessage.counter = ++count; isWait = false; }, ms);
-      isWait = true;
+      setTimeout(() => {
+        flag = false;
+      } , ms);
     }
   }
-  sendMessage.counter = 0;
 
   return sendMessage;
 }
